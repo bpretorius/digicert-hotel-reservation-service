@@ -1,0 +1,293 @@
+{
+	"info": {
+		"_postman_id": "66f51651-4e32-477a-b658-2ff72c25c519",
+		"name": "DigiCert - Hotel Reservation Service",
+		"description": "This service allows you to create, read, update, delete and list Reservations",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "reservation",
+			"item": [
+				{
+					"name": "{reservation Id}",
+					"item": [
+						{
+							"name": "Get Reservation",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/reservation/:reservationId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"reservation",
+										":reservationId"
+									],
+									"variable": [
+										{
+											"key": "reservationId",
+											"value": "1",
+											"description": "(Required) "
+										}
+									]
+								},
+								"description": "Get Reservation"
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Reservation",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/reservation/:reservationId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"reservation",
+										":reservationId"
+									],
+									"variable": [
+										{
+											"key": "reservationId",
+											"value": "1",
+											"description": "(Required) "
+										}
+									]
+								},
+								"description": "Delete Reservation"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Create Reservation",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"hotel\": {\n    \"id\": 1   \n  },\n  \"customer\": {\n    \"id\": 2\n  },\n  \"reservationReference\": \"Refxxxxxxxx\",\n  \"fromDateTime\": \"2023-07-01T10:00:00.000Z\",\n  \"toDateTime\": \"2023-07-02T14:00:00.000Z\" \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/reservation",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"reservation"
+							]
+						},
+						"description": "Create Reservation"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Reservation",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": 1,\n  \"hotel\": {\n    \"id\": 3\n  },\n  \"customer\": {\n    \"id\": 1\n  },\n  \"reservationReference\": \"Refxxxxxxx\",\n  \"fromDateTime\": \"2009-11-22T19:05:08.797Z\",\n  \"toDateTime\": \"1965-06-08T23:51:31.368Z\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/reservation",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"reservation"
+							]
+						},
+						"description": "Update Reservation"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Reservations",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/reservation/list?page=0&size=10",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"reservation",
+								"list"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								}
+							]
+						},
+						"description": "Get Reservation"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "hotel",
+			"item": [
+				{
+					"name": "Get Hotels",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/hotel/list?page=0&size=10",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"hotel",
+								"list"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								}
+							]
+						},
+						"description": "Get Reservation"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "customer",
+			"item": [
+				{
+					"name": "Get Customers",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/customer/list?page=0&size=10",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"customer",
+								"list"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								}
+							]
+						},
+						"description": "Get Reservation"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080",
+			"type": "string"
+		}
+	]
+}

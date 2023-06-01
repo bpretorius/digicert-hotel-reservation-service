@@ -1,0 +1,392 @@
+openapi: 3.0.3
+info:
+  title: DigiCert - Hotel Reservation Service
+  description: This service allows you to create, read, update, delete and list Reservations
+  version: "1"
+
+paths:
+  /reservation:
+    post:
+      tags:
+      - Hotel Reservation
+      summary: Create Reservation
+      description: Create Reservation
+      operationId: createReservation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Reservation'
+        required: false
+      responses:
+        200:
+          description: Reservation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reservation'
+        400:
+          description: Invalid input provided.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        401:
+          description: Invalid / Expired token provided.
+          content: {}
+        403:
+          description: Forbidden / Unauthorized role.
+          content: {}
+        500:
+          description: Internal Server Error.
+          content: {}
+
+    put:
+      tags:
+      - Hotel Reservation
+      summary: Update Reservation
+      description: Update Reservation
+      operationId: updateReservation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Reservation'
+        required: false
+      responses:
+        204:
+          description: Reservation
+          content: {}
+        400:
+          description: Invalid input provided.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        401:
+          description: Invalid / Expired token provided.
+          content: {}
+        403:
+          description: Forbidden / Unauthorized role.
+          content: {}
+        500:
+          description: Internal Server Error.
+          content: {}
+
+  /reservation/{reservationId}:
+    get:
+      tags:
+      - Hotel Reservation
+      summary: Get Reservation
+      description: Get Reservation
+      operationId: getReservation
+      parameters:
+        - name: reservationId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+            description: The Reservation id.
+            example: 1
+      responses:
+        200:
+          description: Reservation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reservation'
+        400:
+          description: Invalid input provided.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        401:
+          description: Invalid / Expired token provided.
+          content: {}
+        403:
+          description: Forbidden / Unauthorized role.
+          content: {}
+        500:
+          description: Internal Server Error.
+          content: {}
+    delete:
+      tags:
+      - Hotel Reservation
+      summary: Delete Reservation
+      description: Delete Reservation
+      operationId: deleteReservation
+      parameters:
+        - name: reservationId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+            description: The Reservation id.
+            example: 1
+      responses:
+        204:
+          description: Reservation
+          content: {}
+        400:
+          description: Invalid input provided.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        401:
+          description: Invalid / Expired token provided.
+          content: {}
+        403:
+          description: Forbidden / Unauthorized role.
+          content: {}
+        500:
+          description: Internal Server Error.
+          content: {}
+  /reservation/list:
+    get:
+      tags:
+      - Hotel Reservation
+      summary: Get Reservations
+      description: Get Reservation
+      operationId: getReservations
+      parameters:
+        - in: query
+          name: pageable
+          required: false
+          schema:
+            $ref: '#/components/schemas/Pageable'
+      responses:
+        200:
+          description: Reservation List Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReservationList'
+        400:
+          description: Invalid input provided.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        401:
+          description: Invalid / Expired token provided.
+          content: {}
+        403:
+          description: Forbidden / Unauthorized role.
+          content: {}
+        500:
+          description: Internal Server Error.
+          content: {}
+
+  /hotel/list:
+    get:
+      tags:
+      - Hotel
+      summary: Get Hotels
+      description: Get Hotels
+      operationId: getHotels
+      parameters:
+        - in: query
+          name: pageable
+          required: false
+          schema:
+            $ref: '#/components/schemas/Pageable'
+      responses:
+        200:
+          description: Hotel List Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HotelList'
+        400:
+          description: Invalid input provided.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        401:
+          description: Invalid / Expired token provided.
+          content: {}
+        403:
+          description: Forbidden / Unauthorized role.
+          content: {}
+        500:
+          description: Internal Server Error.
+          content: {}
+
+  /customer/list:
+    get:
+      tags:
+      - Customer
+      summary: Get Customers
+      description: Get Customer
+      operationId: getCustomers
+      parameters:
+        - in: query
+          name: pageable
+          required: false
+          schema:
+            $ref: '#/components/schemas/Pageable'
+      responses:
+        200:
+          description: Hotel List Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerList'
+        400:
+          description: Invalid input provided.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        401:
+          description: Invalid / Expired token provided.
+          content: {}
+        403:
+          description: Forbidden / Unauthorized role.
+          content: {}
+        500:
+          description: Internal Server Error.
+          content: {}
+
+components:
+  schemas:
+    Reservation:
+      required:
+      - hotel
+      - customer
+      - reservationReference
+      - numberOfAdults
+      - numberOfChildren
+      - fromDate
+      - toDate
+      type: object
+      properties:
+        id:
+          type: integer
+          description: The Reservation id.
+          format: int64
+          example: 1
+        hotel:
+          $ref: "#/components/schemas/Hotel"
+        customer:
+           $ref: "#/components/schemas/Customer"
+        reservationReference:
+          pattern: ^[\w .\-'"?,~!@#$%^&*()=+\/\\]+$
+          type: string
+          description: Your reference to the Reservation
+          example: Refxxxxxxx
+          maximum: 255
+        numberOfAdults:
+          type: integer
+          description: The Number of Adults.
+          format: int32
+          example: 2
+        numberOfChildren:
+          type: integer
+          description: The Number of Children.
+          format: int32
+          example: 2
+        fromDate:
+          type: string
+          description: From Date
+          example: 2023-07-01
+        toDate:
+          type: string
+          description: From Date
+          example: 2023-07-01
+
+    ReservationList:
+      type: object
+      properties:
+        reservations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Reservation'
+
+    Hotel:
+      required:
+      - id
+      type: object
+      properties:
+        id:
+          type: integer
+          description: The Hotel id.
+          format: int64
+          example: 1
+        name:
+          pattern: ^[\w .\-'"?,~!@#$%^&*()=+\/\\]+$
+          type: string
+          description: Hotel name
+          example: Hilton
+          maximum: 255
+
+    HotelList:
+      type: object
+      properties:
+        hotels:
+          type: array
+          items:
+            $ref: '#/components/schemas/Hotel'
+
+
+    Customer:
+      required:
+      - id
+      type: object
+      properties:
+        id:
+          type: integer
+          description: The Customer id.
+          format: int64
+          example: 1
+        name:
+          pattern: ^[\w .\-'"?,~!@#$%^&*()=+\/\\]+$
+          type: string
+          description: Customer name
+          example: Robert Pretorius
+          maximum: 255
+
+    CustomerList:
+      type: object
+      properties:
+        customers:
+          type: array
+          items:
+            $ref: '#/components/schemas/Customer'
+
+    Pageable:
+      type: object
+      properties:
+        page:
+          minimum: 0
+          type: integer
+          format: int32
+          example: 0
+        size:
+          minimum: 1
+          type: integer
+          format: int32
+          example: 10
+        sort:
+          type: array
+          items:
+            type: string
+            example: null
+
+    ErrorResponse:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+          example: RESERVATION_NOT_FOUND
+        message:
+          type: string
+          example: Validation failed, ensure all fields are correct
