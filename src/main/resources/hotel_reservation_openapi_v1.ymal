@@ -1,11 +1,11 @@
 openapi: 3.0.3
 info:
-  title: DigiCert - Hotel Reservation Service
+  title: Hotel Reservation Service
   description: This service allows you to create, read, update, delete and list Reservations
   version: "1"
 
 paths:
-  /reservation:
+  /hotel/reservation:
     post:
       tags:
       - Hotel Reservation
@@ -73,7 +73,7 @@ paths:
           description: Internal Server Error.
           content: {}
 
-  /reservation/{reservationId}:
+  /hotel/reservation/{reservationId}:
     get:
       tags:
       - Hotel Reservation
@@ -145,7 +145,7 @@ paths:
         500:
           description: Internal Server Error.
           content: {}
-  /reservation/list:
+  /hotel/reservation/list:
     get:
       tags:
       - Hotel Reservation
@@ -217,7 +217,7 @@ paths:
           description: Internal Server Error.
           content: {}
 
-  /customer/list:
+  /hotel/customer/list:
     get:
       tags:
       - Customer

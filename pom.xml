@@ -6,20 +6,21 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.0.5</version>
+		<version>3.4.4</version>
+		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
-    <groupId>com.digicert</groupId>
+    <groupId>com.hotel</groupId>
 	<artifactId>hotel-reservation-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>hotel-resrvation</name>
-	<description>DigiCert Hotel Reservation</description>
+	<description>Hotel Reservation</description>
 
 	<properties>
-        <java.version>17</java.version>
-        <spring-cloud.version>2022.0.2</spring-cloud.version>
-		<testcontainers.version>1.15.2</testcontainers.version>
-        <hibernate.tools.version>6.0.0.Final</hibernate.tools.version>
+        <java.version>21</java.version>
+		<spring-cloud.version>2023.0.2</spring-cloud.version>
+		<org.openapitools.version>7.7.0</org.openapitools.version>
+		<aws.version>2.26.16</aws.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -69,6 +70,40 @@
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
+		</dependency>
+
+		<!-- SECURITY -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-oauth2-client</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>6.2.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-oauth2-resource-server</artifactId>
+			<version>6.2.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-oauth2-jose</artifactId>
+			<version>6.2.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<scope>provided</scope>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.mapstruct/mapstruct -->
@@ -136,8 +171,8 @@
 								${project.basedir}/src/main/resources/hotel_reservation_openapi_v1.ymal
 							</inputSpec>
 							<generatorName>spring</generatorName>
-							<apiPackage>com.digicert.hotel.reservation.api</apiPackage>
-							<modelPackage>com.digicert.hotel.reservation.api.model</modelPackage>
+							<apiPackage>com.hotel.reservation.api</apiPackage>
+							<modelPackage>com.hotel.reservation.api.model</modelPackage>
 							<supportingFilesToGenerate>
 								ApiUtil.java
 							</supportingFilesToGenerate>

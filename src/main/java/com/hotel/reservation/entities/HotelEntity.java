@@ -1,4 +1,4 @@
-package com.digicert.hotel.reservation.entities;
+package com.hotel.reservation.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -11,8 +11,8 @@ import jakarta.validation.constraints.Size;
 
 @Entity
 
-@Table(name = "customer")
-public class CustomerEntity {
+@Table(name = "hotel")
+public class HotelEntity {
 	@Id
 	@Column(name = "Id")
 	@GeneratedValue(strategy= GenerationType.IDENTITY)

@@ -1,4 +1,4 @@
-package com.digicert.hotel.reservation.entities;
+package com.hotel.reservation.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

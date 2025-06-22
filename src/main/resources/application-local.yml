@@ -1,10 +1,27 @@
+server:
+  servlet:
+    context-path: /
+  port: 8080
+  forward-headers-strategy: framework
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+
 spring:
+  threads:
+    virtual:
+      enabled=true:
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8081
   config:
     activate:
       on-profile: local
 
-  thymeleaf:
-    check-template-location: false
 
   datasource:
     url: jdbc:h2:mem:reservation
@@ -16,20 +33,13 @@ spring:
     open-in-view: false
     database-platform: org.hibernate.dialect.H2Dialect
     defer-datasource-initialization: true
+    show-sql: true
     properties:
       hibernate:
+        format_sql: true
         jdbc:
           time_zone: UTC
 
   h2:
     console.enabled: true
 
-server:
-  servlet:
-    context-path: /
-  port: 8080
-  forward-headers-strategy: framework
-
-logging:
-  level:
-    com.digicert.hotel.reservation: TRACE

@@ -1,6 +1,6 @@
-package com.digicert.hotel.reservation.repository;
+package com.hotel.reservation.repository;
 
-import com.digicert.hotel.reservation.entities.ReservationEntity;
+import com.hotel.reservation.entities.ReservationEntity;
 
 import org.springframework.data.repository.ListCrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;

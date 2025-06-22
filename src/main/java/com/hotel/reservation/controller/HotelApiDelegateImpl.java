@@ -1,15 +1,14 @@
-package com.digicert.hotel.reservation.controller;
+package com.hotel.reservation.controller;
 
-import com.digicert.hotel.reservation.api.model.Reservation;
-import com.digicert.hotel.reservation.api.model.ReservationList;
-import com.digicert.hotel.reservation.entities.CustomerEntity;
-import com.digicert.hotel.reservation.entities.HotelEntity;
-import com.digicert.hotel.reservation.entities.ReservationEntity;
-import com.digicert.hotel.reservation.mappers.ModelMapper;
-import com.digicert.hotel.reservation.repository.CustomerRepository;
-import com.digicert.hotel.reservation.repository.HotelRepository;
-import com.digicert.hotel.reservation.repository.ReservationRepository;
-import com.digicert.hotel.reservation.api.ReservationApiDelegate;
+import com.hotel.reservation.api.HotelApiDelegate;
+import com.hotel.reservation.api.model.*;
+import com.hotel.reservation.entities.CustomerEntity;
+import com.hotel.reservation.entities.HotelEntity;
+import com.hotel.reservation.entities.ReservationEntity;
+import com.hotel.reservation.mappers.ModelMapper;
+import com.hotel.reservation.repository.CustomerRepository;
+import com.hotel.reservation.repository.HotelRepository;
+import com.hotel.reservation.repository.ReservationRepository;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -23,14 +22,16 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
-public class ReservationApiDelegateImpl implements ReservationApiDelegate {
+public class HotelApiDelegateImpl implements HotelApiDelegate {
+
+	@Autowired
+	ReservationRepository reservationRepository;
 
 	@Autowired
 	HotelRepository hotelRepository;
+
 	@Autowired
 	CustomerRepository customerRepository;
-	@Autowired
-	ReservationRepository reservationRepository;
 
 	/* 	Reason setting up data like this is as the data.sql onload was conflicting when testing.
 		In Test the scheme had not yet been created before loading. Setting datasource.data: anotherfilename.sql
@@ -134,6 +135,32 @@ public class ReservationApiDelegateImpl implements ReservationApiDelegate {
 			throw ne;
 		} catch (Exception e) {
 			throw e;
+		} catch (Throwable t) {
+			throw t;
+		}
+	}
+
+	@Override
+	public ResponseEntity<HotelList> getHotels(Pageable pageable) {
+		try {
+			List<Hotel> hotelsDTO = new ArrayList<Hotel>();
+			hotelRepository.findAll(pageable).forEach(hotel -> hotelsDTO.add(ModelMapper.INSTANCE.hotelEntityToDTO(hotel)));
+			HotelList hotelList = new HotelList();
+			hotelList.setHotels(hotelsDTO);
+			return new ResponseEntity<HotelList>(hotelList, HttpStatus.OK);
+		} catch (Throwable t) {
+			throw t;
+		}
+	}
+
+	@Override
+	public ResponseEntity<CustomerList> getCustomers(Pageable pageable) {
+		try {
+			List<Customer> customersDTO = new ArrayList<Customer>();
+			customerRepository.findAll(pageable).forEach(customer -> customersDTO.add(ModelMapper.INSTANCE.customerEntityToDTO(customer)));
+			CustomerList customerList = new CustomerList();
+			customerList.setCustomers(customersDTO);
+			return new ResponseEntity<CustomerList>(customerList, HttpStatus.OK);
 		} catch (Throwable t) {
 			throw t;
 		}

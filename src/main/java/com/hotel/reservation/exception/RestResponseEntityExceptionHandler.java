@@ -1,5 +1,6 @@
-package com.digicert.hotel.reservation.exception;
+package com.hotel.reservation.exception;
 
+import com.hotel.reservation.api.model.ErrorResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -10,7 +11,6 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-import com.digicert.hotel.reservation.api.model.ErrorResponse;
 import jakarta.validation.ConstraintViolationException;
 
 import java.io.IOException;

@@ -1,13 +1,13 @@
-package com.digicert.hotel.reservation;
+package com.hotel.reservation;
 
-import com.digicert.hotel.reservation.api.model.Customer;
-import com.digicert.hotel.reservation.api.model.Hotel;
-import com.digicert.hotel.reservation.api.model.Reservation;
-import com.digicert.hotel.reservation.entities.CustomerEntity;
-import com.digicert.hotel.reservation.entities.HotelEntity;
-import com.digicert.hotel.reservation.repository.CustomerRepository;
-import com.digicert.hotel.reservation.repository.HotelRepository;
-import com.digicert.hotel.reservation.repository.ReservationRepository;
+import com.hotel.reservation.api.model.Customer;
+import com.hotel.reservation.api.model.Hotel;
+import com.hotel.reservation.api.model.Reservation;
+import com.hotel.reservation.entities.CustomerEntity;
+import com.hotel.reservation.entities.HotelEntity;
+import com.hotel.reservation.repository.CustomerRepository;
+import com.hotel.reservation.repository.HotelRepository;
+import com.hotel.reservation.repository.ReservationRepository;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -27,8 +27,6 @@ import org.springframework.test.context.TestPropertySource;
 
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-
-import java.time.LocalDate;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
