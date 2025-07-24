@@ -17,7 +17,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:8081
+          issuer-uri: https://ob-authentication-service-int.cappay.npr-plipay.asgard.capi
 
   config:
     activate:

@@ -48,6 +48,10 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/hotel/**").hasAnyAuthority("ROLE_read:hotel_reservation", "ROLE_super_user:hotel_reservation")
                         .requestMatchers(HttpMethod.PUT, "/hotel/**").hasAnyAuthority("ROLE_update:hotel_reservation", "ROLE_super_user:hotel_reservation")
                         .requestMatchers(HttpMethod.DELETE, "/hotel/**").hasAnyAuthority("ROLE_delete:hotel_reservation", "ROLE_super_user:hotel_reservation")
+                        .requestMatchers(
+                                "/swagger-ui/**",
+                                "/v3/api-docs/**"
+                        ).permitAll()
                         .anyRequest().permitAll() // allow all other requests
                 )
                 .oauth2ResourceServer(oauth2 -> oauth2
