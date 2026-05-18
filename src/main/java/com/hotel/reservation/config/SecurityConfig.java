@@ -3,6 +3,7 @@ package com.hotel.reservation.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -11,6 +12,7 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.util.StringUtils;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -39,7 +41,8 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(
-            final HttpSecurity http) throws Exception {
+            final HttpSecurity http,
+            final Environment environment) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(Customizer.withDefaults())
@@ -53,10 +56,13 @@ public class SecurityConfig {
                                 "/v3/api-docs/**"
                         ).permitAll()
                         .anyRequest().permitAll() // allow all other requests
-                )
-                .oauth2ResourceServer(oauth2 -> oauth2
-                        .jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthConverter()))
                 );
+
+        if (hasJwtConfiguration(environment)) {
+            http.oauth2ResourceServer(oauth2 -> oauth2
+                    .jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthConverter()))
+            );
+        }
 
         return http.build();
     }
@@ -84,5 +90,10 @@ public CorsConfigurationSource corsConfigurationSource() {
         JwtAuthenticationConverter converter = new JwtAuthenticationConverter();
         converter.setJwtGrantedAuthoritiesConverter(rolesConverter);
         return converter;
+    }
+
+    private boolean hasJwtConfiguration(Environment environment) {
+        return StringUtils.hasText(environment.getProperty("spring.security.oauth2.resourceserver.jwt.issuer-uri"))
+                || StringUtils.hasText(environment.getProperty("spring.security.oauth2.resourceserver.jwt.jwk-set-uri"));
     }
 }

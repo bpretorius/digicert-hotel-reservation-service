@@ -11,16 +11,18 @@ import com.hotel.reservation.repository.ReservationRepository;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeAll;
 
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import org.springframework.http.MediaType;
 import org.springframework.test.context.TestPropertySource;
@@ -39,10 +41,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(
 		webEnvironment = SpringBootTest.WebEnvironment.MOCK,
 		classes = ReservationApplication.class)
-@AutoConfigureMockMvc
+@AutoConfigureMockMvc(addFilters = false)
+@ActiveProfiles("test")
 @TestPropertySource(
 		locations = "classpath:application-test.yml")
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class ReservationApplicationTest {
 
 	@Autowired
@@ -54,8 +58,11 @@ public class ReservationApplicationTest {
 	@Autowired
 	ReservationRepository reservationRepository;
 
-	@Before
+	@BeforeAll
 	public void setUp() {
+		reservationRepository.deleteAll();
+		hotelRepository.deleteAll();
+		customerRepository.deleteAll();
 
 		CustomerEntity customerEntity = new CustomerEntity();
 		customerEntity.setName("Robert Pretorius");
@@ -95,7 +102,7 @@ public class ReservationApplicationTest {
 		reservation.setToDate("2023-07-01T00:00:00.000Z");
 		reservation.setReservationReference("Refxxxxxxxx");
 
-		mvc.perform(post("/reservation").content(asJsonString(reservation))
+		mvc.perform(post("/hotel/reservation").content(asJsonString(reservation))
 						.contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk());
 
@@ -106,7 +113,7 @@ public class ReservationApplicationTest {
 	@Order(2)
 	public void getReservation200() throws Exception {
 
-		mvc.perform(get("/reservation/1")
+		mvc.perform(get("/hotel/reservation/1")
 						.accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$.id").value(1));
@@ -116,7 +123,7 @@ public class ReservationApplicationTest {
 	@Order(3)
 	public void getReservations200() throws Exception {
 
-		mvc.perform(get("/reservation/list")
+		mvc.perform(get("/hotel/reservation/list")
 						.accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk());
 
@@ -140,7 +147,7 @@ public class ReservationApplicationTest {
 		reservation.setNumberOfAdults(2);
 		reservation.setNumberOfChildren(2);
 
-		mvc.perform(put("/reservation").content(asJsonString(reservation))
+		mvc.perform(put("/hotel/reservation").content(asJsonString(reservation))
 						.contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isNoContent());
 
@@ -150,7 +157,7 @@ public class ReservationApplicationTest {
 	@Order(5)
 	public void deleteReservation204() throws Exception {
 
-		mvc.perform(delete("/reservation/1")
+		mvc.perform(delete("/hotel/reservation/1")
 						.accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isNoContent());
 	}

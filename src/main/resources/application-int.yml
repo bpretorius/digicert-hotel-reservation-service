@@ -21,7 +21,7 @@ spring:
 
   config:
     activate:
-      on-profile: local
+      on-profile: int
 
   datasource:
     url: jdbc:h2:mem:reservation
