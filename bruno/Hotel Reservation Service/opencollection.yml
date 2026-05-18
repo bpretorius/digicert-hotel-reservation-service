@@ -1,0 +1,19 @@
+opencollection: 1.0.0
+
+info:
+  name: Hotel Reservation Service
+
+request:
+  variables:
+    - name: baseUrl
+      value: http://localhost:8080
+
+docs:
+  content: This service allows you to create, read, update, delete and list Reservations
+  type: text/markdown
+bundled: false
+extensions:
+  bruno:
+    ignore:
+      - node_modules
+      - .git

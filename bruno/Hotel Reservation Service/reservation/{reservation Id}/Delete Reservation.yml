@@ -1,0 +1,25 @@
+info:
+  name: Delete Reservation
+  type: http
+  seq: 2
+
+http:
+  method: DELETE
+  url: "{{baseUrl}}/reservation/:reservationId"
+  headers:
+    - name: Accept
+      value: application/json
+  params:
+    - name: reservationId
+      value: "1"
+      type: path
+      description: "(Required) "
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+docs: Delete Reservation

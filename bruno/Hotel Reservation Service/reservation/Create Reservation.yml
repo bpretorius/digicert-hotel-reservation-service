@@ -1,0 +1,36 @@
+info:
+  name: Create Reservation
+  type: http
+  seq: 2
+
+http:
+  method: POST
+  url: "{{baseUrl}}/reservation"
+  headers:
+    - name: Content-Type
+      value: application/json
+    - name: Accept
+      value: application/json
+  body:
+    type: json
+    data: |-
+      {
+        "hotel": {
+          "id": 1   
+        },
+        "customer": {
+          "id": 2
+        },
+        "reservationReference": "Refxxxxxxxx",
+        "fromDateTime": "2023-07-01T10:00:00.000Z",
+        "toDateTime": "2023-07-02T14:00:00.000Z" 
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+docs: Create Reservation

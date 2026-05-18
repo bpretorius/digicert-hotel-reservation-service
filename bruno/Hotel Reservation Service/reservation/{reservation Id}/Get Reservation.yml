@@ -1,0 +1,25 @@
+info:
+  name: Get Reservation
+  type: http
+  seq: 1
+
+http:
+  method: GET
+  url: "{{baseUrl}}/reservation/:reservationId"
+  headers:
+    - name: Accept
+      value: application/json
+  params:
+    - name: reservationId
+      value: "1"
+      type: path
+      description: "(Required) "
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+docs: Get Reservation
