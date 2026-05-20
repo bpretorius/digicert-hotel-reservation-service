@@ -5,7 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -22,11 +23,13 @@ public class ReservationEntity {
 	private Long id;
 
 	@NotNull
-	@OneToOne
+	@ManyToOne
+	@JoinColumn(name = "hotel_entity_id", nullable = false)
 	private HotelEntity hotelEntity;
 
 	@NotNull
-	@OneToOne
+	@ManyToOne
+	@JoinColumn(name = "customer_entity_id", nullable = false)
 	private CustomerEntity customerEntity;
 
 	@NotNull
