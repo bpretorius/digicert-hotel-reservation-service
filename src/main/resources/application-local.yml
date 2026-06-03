@@ -1,7 +1,7 @@
 server:
   servlet:
     context-path: /
-  port: 8080
+  port: 8081
   forward-headers-strategy: framework
 
 logging:
@@ -17,7 +17,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:8081
+          issuer-uri: http://localhost:8080/realms/dev
 
   config:
     activate:
